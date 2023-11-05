@@ -25,6 +25,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements Dis
 
     @Autowired
     private DishFlavorService dishFlavorService;
+    @Autowired
+    private DishMapper dishMapper;
 
     /**
      * 新增菜品，同时保存对应的口味数据
@@ -85,5 +87,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements Dis
         }).collect(Collectors.toList());
 
         dishFlavorService.saveBatch(flavors);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Long ids, Integer b) {
+        dishMapper.updateStatus(ids, b);
     }
 }
